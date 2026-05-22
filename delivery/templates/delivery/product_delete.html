@@ -1,0 +1,18 @@
+<!-- Topic 9: تُستخدم مع ProductDeleteView (CBV) -->
+{% extends 'delivery/base.html' %}
+{% block title %}حذف المنتج{% endblock %}
+
+{% block content %}
+<div class="confirm-card">
+  <div class="icon">🗑️</div>
+  <h1>تأكيد الحذف</h1>
+  <p>هل تريد حذف المنتج: <strong>{{ object.name }}</strong>؟</p>
+  <form method="POST">
+    {% csrf_token %}
+    <div class="form-btns">
+      <button type="submit" class="btn btn-red">نعم، احذف</button>
+      <a href="{% url 'product_list' %}" class="btn btn-gray">لا، إلغاء</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

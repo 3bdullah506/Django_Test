@@ -1,0 +1,20 @@
+{% extends 'delivery/base.html' %}
+{% block title %}حذف الطلب{% endblock %}
+
+{% block content %}
+<div class="confirm-card">
+  <div class="icon">🗑️</div>
+  <h1>تأكيد الحذف</h1>
+  <p>
+    هل تريد حذف طلب:<br>
+    <strong>{{ order.customer_name }} — {{ order.product.name }}</strong>
+  </p>
+  <form method="POST">
+    {% csrf_token %}
+    <div class="form-btns">
+      <button type="submit" class="btn btn-red">نعم، احذف</button>
+      <a href="{% url 'order_list' %}" class="btn btn-gray">لا، إلغاء</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

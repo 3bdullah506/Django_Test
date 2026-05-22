@@ -1,0 +1,58 @@
+<!-- Topic 3: Template Inheritance — ترث من base.html -->
+{% extends 'delivery/base.html' %}
+
+{% block title %}قائمة الطلبات{% endblock %}
+
+{% block content %}
+
+<div class="top-bar">
+  <h1>📋 الطلبات</h1>
+  <a href="{% url 'order_add' %}" class="btn btn-green">+ إضافة طلب</a>
+</div>
+
+{% if orders %}
+<table>
+  <tr>
+    <th>#</th>
+    <th>اسم العميل</th>
+    <th>الهاتف</th>
+    <th>المنتج</th>
+    <th>الكمية</th>
+    <th>العنوان</th>
+    <th>الحالة</th>
+    <th>إجراءات</th>
+  </tr>
+
+  {% for order in orders %}
+  <tr>
+    <td>{{ forloop.counter }}</td>
+    <td><strong>{{ order.customer_name }}</strong></td>
+    <td>{{ order.phone }}</td>
+
+    <!-- Topic 8: ForeignKey — نصل لاسم المنتج عبر order.product.name -->
+    <td>{{ order.product.name }}</td>
+
+    <td>{{ order.quantity }}</td>
+    <td>{{ order.address }}</td>
+    <td>
+      <!-- get_status_display ← تعرض النص العربي بدلاً من الكود -->
+      <span class="badge {{ order.status }}">
+        {{ order.get_status_display }}
+      </span>
+    </td>
+    <td>
+      <a href="{% url 'order_edit' order.pk %}" class="btn btn-blue" style="font-size:12px;padding:5px 12px;">تعديل</a>
+      <a href="{% url 'order_delete' order.pk %}" class="btn btn-red" style="font-size:12px;padding:5px 12px;">حذف</a>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+
+{% else %}
+<div class="empty">
+  لا توجد طلبات بعد.<br><br>
+  <a href="{% url 'order_add' %}" class="btn btn-green">أضف أول طلب</a>
+</div>
+{% endif %}
+
+{% endblock %}

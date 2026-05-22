@@ -1,0 +1,26 @@
+{% extends 'delivery/base.html' %}
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="card">
+  <h1>{{ title }}</h1>
+
+  <form method="POST">
+    {% csrf_token %}
+
+    <!-- Django يعرض كل حقل تلقائياً مع تسميته -->
+    {% for field in form %}
+      <label>{{ field.label }}</label>
+      {{ field }}
+      {% if field.errors %}
+        <p style="color:red;font-size:12px;">{{ field.errors.as_text }}</p>
+      {% endif %}
+    {% endfor %}
+
+    <div class="form-btns">
+      <button type="submit" class="btn btn-blue">💾 حفظ</button>
+      <a href="{% url 'order_list' %}" class="btn btn-gray">إلغاء</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

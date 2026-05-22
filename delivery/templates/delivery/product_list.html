@@ -1,0 +1,41 @@
+<!-- Topic 9: هذه الصفحة تُستخدم مع ProductListView (CBV) -->
+{% extends 'delivery/base.html' %}
+{% block title %}المنتجات{% endblock %}
+
+{% block content %}
+
+<div class="top-bar">
+  <h1>📦 المنتجات</h1>
+  <a href="{% url 'product_add' %}" class="btn btn-green">+ إضافة منتج</a>
+</div>
+
+{% if products %}
+<table>
+  <tr>
+    <th>#</th>
+    <th>اسم المنتج</th>
+    <th>السعر</th>
+    <th>إجراءات</th>
+  </tr>
+
+  {% for product in products %}
+  <tr>
+    <td>{{ forloop.counter }}</td>
+    <td><strong>{{ product.name }}</strong></td>
+    <td>{{ product.price }} ر.ي</td>
+    <td>
+      <a href="{% url 'product_edit' product.pk %}" class="btn btn-blue" style="font-size:12px;padding:5px 12px;">تعديل</a>
+      <a href="{% url 'product_delete' product.pk %}" class="btn btn-red" style="font-size:12px;padding:5px 12px;">حذف</a>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+
+{% else %}
+<div class="empty">
+  لا توجد منتجات بعد.<br><br>
+  <a href="{% url 'product_add' %}" class="btn btn-green">أضف أول منتج</a>
+</div>
+{% endif %}
+
+{% endblock %}

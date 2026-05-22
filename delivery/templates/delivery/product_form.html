@@ -1,0 +1,20 @@
+<!-- Topic 9: تُستخدم مع ProductCreateView و ProductUpdateView (CBV) -->
+{% extends 'delivery/base.html' %}
+{% block title %}المنتج{% endblock %}
+
+{% block content %}
+<div class="card">
+  <h1>بيانات المنتج</h1>
+  <form method="POST">
+    {% csrf_token %}
+    {% for field in form %}
+      <label>{{ field.label }}</label>
+      {{ field }}
+    {% endfor %}
+    <div class="form-btns">
+      <button type="submit" class="btn btn-blue">💾 حفظ</button>
+      <a href="{% url 'product_list' %}" class="btn btn-gray">إلغاء</a>
+    </div>
+  </form>
+</div>
+{% endblock %}
